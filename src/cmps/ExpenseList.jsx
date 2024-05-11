@@ -1,10 +1,15 @@
 import { ExpensePreview } from './ExpensePreview'
 
-export function ExpenseList() {
+export function ExpenseList({ expenses, onRemoveExpense }) {
     return (
-        <section className="expense-list">
-            Expense list cmp
-            <ExpensePreview />
-        </section>
+        <ul className="expense-list">
+            {expenses.map(expense =>
+                // <button onClick={() => onRemoveExpense(expense._id)}>Remove</button>
+                <ExpensePreview
+                    key={expense._id}
+                    expense={expense}
+                />
+            )}
+        </ul>
     )
 }

@@ -1,0 +1,12 @@
+.main-app {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 100px calc(100vh - 100px);
+    grid-template-areas:
+        "filter filter"
+        "list chart";
+    min-height: 100vh;
+
+    background-color: $bg-primary;
+    color: $text-primary;
+}

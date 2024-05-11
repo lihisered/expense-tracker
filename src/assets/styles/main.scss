@@ -7,4 +7,12 @@
 @import "basics/helpers";
 @import "basics/layout";
 @import "basics/base";
-@import "basics/forms";
+
+// Pages 
+@import "pages/Dashboard";
+
+// Cmps
+@import "cmps/ExpenseList";
+@import "cmps/ExpenseFilter";
+@import "cmps/ExpenseChart";
+@import "cmps/ExpensePreview";
