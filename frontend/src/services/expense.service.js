@@ -1,5 +1,7 @@
 import { storageService } from './async-storage.service'
+import { httpService } from './http.service.js'
 
+const BASE_URL = 'expense/'
 const STORAGE_KEY = 'expense_db'
 
 const expenses = [
@@ -97,8 +99,9 @@ export const expenseService = {
     getDefaultFilter
 }
 
-async function query() {
-    return await storageService.query(STORAGE_KEY)
+async function query(filterBy = {}) {
+    return httpService.get(BASE_URL, filterBy)
+    // return await storageService.query(STORAGE_KEY)
 }
 
 function getById(expenseId) {

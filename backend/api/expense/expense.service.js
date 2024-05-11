@@ -3,13 +3,44 @@ import { logger } from '../../services/logger.service.js'
 import mongodb from 'mongodb'
 const { ObjectId } = mongodb
 
-async function query() {
+async function query(filterBy = {}) {
     try {
+        const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('expense')
-        const expenses = await collection.find({}).toArray()
+
+        const expenses = await collection.aggregate([
+            {
+                $match: criteria
+            },
+            {
+                $lookup: {
+                    from: 'user',
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'userDetails'
+                }
+            },
+            {
+                $unwind: {
+                    path: '$userDetails',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    amount: 1,
+                    category: 1,
+                    date: 1,
+                    notes: 1,
+                    username: "$userDetails.username",
+                    fullname: "$userDetails.fullname"
+                }
+            }
+        ]).toArray()
         return expenses
     } catch (err) {
-        logger.error('Cannot find expenses', err)
+        logger.error('cannot find expenses', err)
         throw err
     }
 }
@@ -48,6 +79,26 @@ async function add(expense) {
         throw err
     }
 }
+
+function _buildCriteria(filterBy) {
+    const criteria = {}
+
+    if (filterBy.userId) {
+        criteria.userId = ObjectId(filterBy.userId)
+    }
+
+    if (filterBy.categories && filterBy.categories.length > 0) {
+        criteria.category = { $in: filterBy.categories }
+    }
+
+    if (filterBy.date) {
+        const date = new Date(filterBy.date * 1000)
+        criteria.date = { $gte: date }
+    }
+
+    return criteria
+}
+
 
 export const expenseService = {
     remove,

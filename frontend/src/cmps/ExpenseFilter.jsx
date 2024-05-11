@@ -38,7 +38,7 @@ export function ExpenseFilter({ filterBy, onSetFilter }) {
     useEffect(() => {
         setFilterByToEdit(prev => ({
             ...prev,
-            categories: selectedCategories,
+            categories: selectedCategories.join(','),
             date: selectedDate
         }))
     }, [selectedCategories, selectedDate])
