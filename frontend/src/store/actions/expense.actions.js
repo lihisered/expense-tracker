@@ -3,8 +3,9 @@ import { expenseService } from '../../services/expense.service.js'
 import { SET_EXPENSES, SET_EXPENSE, REMOVE_EXPENSE, ADD_EXPENSE } from '../reducers/expense.reducer.js'
 
 export async function loadExpenses() {
+    const { filterBy } = store.getState().expenseModule
     try {
-        const expenses = await expenseService.query()
+        const expenses = await expenseService.query(filterBy)
         store.dispatch({ type: SET_EXPENSES, expenses })
     } catch (err) {
         console.log('Cannot load expenses', err)

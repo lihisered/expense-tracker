@@ -21,7 +21,7 @@ export function ExpensePreview({ expense }) {
 
     return (
         <ThemeProvider theme={theme}>
-            <ListItem className="expense-preview" sx={{ minWidth: 360, bgcolor: theme.palette.background.paper, borderRadius: '8px' }}>
+            <ListItem className="expense-preview" sx={{ maxWidth: 300, bgcolor: theme.palette.background.paper, borderRadius: '8px' }}>
                 <ListItemText primary={`$${expense.amount}`} secondary={expense.category} />
             </ListItem>
         </ThemeProvider>

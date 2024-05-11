@@ -1,6 +1,6 @@
 .main-app {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 100px calc(100vh - 100px);
     grid-template-areas:
         "filter filter"
@@ -9,4 +9,8 @@
 
     background-color: $bg-primary;
     color: $text-primary;
+
+    >* {
+        padding: 0 50px;
+    }
 }

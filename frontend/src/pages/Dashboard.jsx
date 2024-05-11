@@ -27,7 +27,7 @@ export function Dashboard() {
             }
         }
         fetchData()
-    }, [])
+    }, [filterBy])
 
     async function onRemoveExpense(expenseId) {
         try {
@@ -50,7 +50,6 @@ export function Dashboard() {
     }
 
     function onSetFilter(filterBy) {
-        console.log(filterBy)
         dispatch({ type: 'SET_FILTER_BY', filterBy })
     }
 
