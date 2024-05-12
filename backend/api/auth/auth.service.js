@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import { userService } from '../user/user.service.js'
 import { logger } from '../../services/logger.service.js'
 
-const cryptr = new Cryptr(process.env.SECRET || 'Secret-Puk-1234')
+const cryptr = new Cryptr(process.env.SECRET || 'secret')
 
 export const authService = {
     signup,
@@ -47,7 +47,6 @@ function validateToken(loginToken) {
         const json = cryptr.decrypt(loginToken)
         const loggedinUser = JSON.parse(json)
         return loggedinUser
-
     } catch (err) {
         console.log('Invalid login token')
     }

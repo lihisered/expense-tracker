@@ -8,7 +8,7 @@ const router = express.Router()
 router.get('/', log, requireAuth, getExpenses)
 router.get('/:id', getExpenseById)
 router.post('/', requireAuth, addExpense)
-router.put('/:id', updateExpense)
-router.delete('/:id', removeExpense)
+router.put('/:id', requireAuth, updateExpense)
+router.delete('/:id', requireAuth, removeExpense)
 
 export const expenseRoutes = router

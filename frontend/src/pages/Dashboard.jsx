@@ -6,8 +6,10 @@ import { ExpenseFilter } from '../cmps/ExpenseFilter'
 import { ExpenseAdd } from '../cmps/ExpenseAdd'
 import { Chart } from '../cmps/Chart'
 import { Navbar } from '../cmps/Navbar'
+import { LoginSignup } from '../cmps/LoginSignup'
 
 import { loadExpenses, removeExpense, saveExpense } from '../store/actions/expense.actions'
+import { logout } from '../store/actions/user.actions.js'
 
 export function Dashboard() {
 
@@ -15,20 +17,23 @@ export function Dashboard() {
 
     const filterBy = useSelector(storeState => storeState.expenseModule.filterBy)
     const expenses = useSelector(storeState => storeState.expenseModule.expenses)
+    const user = useSelector(storeState => storeState.userModule.loggedinUser)
 
     const [modalOpen, setModalOpen] = useState(false)
+    const [loginSignupModalOpen, setLoginSignupModalOpen] = useState(false)
     const [currExpense, setCurrExpense] = useState(null)
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                await loadExpenses()
-            } catch (err) {
-                console.log('Cannot load expenses', err)
-            }
-        }
         fetchData()
-    }, [filterBy])
+    }, [filterBy, user])
+
+    async function fetchData() {
+        try {
+            await loadExpenses()
+        } catch (err) {
+            console.log('Cannot load expenses', err)
+        }
+    }
 
     async function onRemoveExpense(expenseId) {
         try {
@@ -57,17 +62,35 @@ export function Dashboard() {
         handleCloseModal()
     }
 
+    function handleOpenLoginSignupModal() {
+        setLoginSignupModalOpen(true)
+    }
+
+    function handleCloseLoginSignupModal() {
+        setLoginSignupModalOpen(false)
+    }
+
+    function handleLogout() {
+        logout()
+    }
+
     return (
         <main className="main-app">
-            <Navbar handleOpen={handleOpenModal} />
+            <Navbar user={user} handleOpen={handleOpenModal}
+                handleOpenLoginSignup={handleOpenLoginSignupModal} handleLogout={handleLogout} />
             <ExpenseFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-            <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} handleOpenModal={handleOpenModal} />
+            <ExpenseList expenses={expenses}
+                onRemoveExpense={onRemoveExpense}
+                handleOpenModal={handleOpenModal} />
             <Chart expenses={expenses} />
 
             <ExpenseAdd open={modalOpen}
                 handleClose={handleCloseModal}
                 expense={currExpense}
                 onSave={handleSaveExpense} />
+
+            <LoginSignup open={loginSignupModalOpen}
+                handleClose={handleCloseLoginSignupModal} />
         </main>
     )
 }

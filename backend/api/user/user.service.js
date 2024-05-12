@@ -67,7 +67,6 @@ async function update(user) {
         const userToSave = {
             _id: ObjectId(user._id),
             fullname: user.fullname,
-            score: user.score,
         }
         const collection = await dbService.getCollection('user')
         await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
@@ -84,8 +83,6 @@ async function add(user) {
             username: user.username,
             password: user.password,
             fullname: user.fullname,
-            imgUrl: user.imgUrl,
-            score: 100
         }
         const collection = await dbService.getCollection('user')
         await collection.insertOne(userToAdd)
@@ -108,9 +105,6 @@ function _buildCriteria(filterBy) {
                 fullname: txtCriteria
             }
         ]
-    }
-    if (filterBy.minBalance) {
-        criteria.score = { $gte: filterBy.minBalance }
     }
     return criteria
 }

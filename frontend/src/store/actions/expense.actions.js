@@ -4,6 +4,7 @@ import { SET_EXPENSES, SET_EXPENSE, REMOVE_EXPENSE, ADD_EXPENSE, UPDATE_EXPENSE 
 
 export async function loadExpenses() {
     const { filterBy } = store.getState().expenseModule
+    filterBy.userId = store.getState().userModule.loggedinUser?._id || ''
     try {
         const expenses = await expenseService.query(filterBy)
         store.dispatch({ type: SET_EXPENSES, expenses })

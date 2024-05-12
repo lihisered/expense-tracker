@@ -52,11 +52,7 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, score: user.score }
+    const userToSave = { _id: user._id, fullname: user.fullname }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }
-
-// Test Data
-// userService.signup({ username: 'muki', password: 'muki1', fullname: 'Muki Ja' })
-// userService.login({ username: 'muki', password: 'muki1' })

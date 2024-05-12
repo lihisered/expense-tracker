@@ -4,11 +4,10 @@ import mongodb from 'mongodb'
 const { ObjectId } = mongodb
 
 export async function getExpenses(req, res) {
-  const { loggedinUser } = req
   try {
     logger.debug('Getting expenses:', req.query)
     const filterBy = {
-      userId: loggedinUser._id,
+      userId: req.query.userId || '',
       categories: req.query.categories ? req.query.categories.split(',') : [],
       date: req.query.date | ''
     }
@@ -34,6 +33,15 @@ export async function getExpenseById(req, res) {
 export async function removeExpense(req, res) {
   try {
     const expenseId = req.params.id
+    const expense = await expenseService.getById(expenseId)
+
+    if (!expense) {
+      return res.status(404).send({ err: 'Expense not found' })
+    }
+    if (req.loggedinUser._id !== expense.userId.toString()) {
+      return res.status(403).send({ err: 'Not authorized to remove this expense' })
+    }
+
     const removedId = await expenseService.remove(expenseId)
     res.send(removedId)
   } catch (err) {
