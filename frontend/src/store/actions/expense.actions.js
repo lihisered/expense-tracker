@@ -1,6 +1,6 @@
 import { store } from '../store.js'
 import { expenseService } from '../../services/expense.service.js'
-import { SET_EXPENSES, SET_EXPENSE, REMOVE_EXPENSE, ADD_EXPENSE } from '../reducers/expense.reducer.js'
+import { SET_EXPENSES, SET_EXPENSE, REMOVE_EXPENSE, ADD_EXPENSE, UPDATE_EXPENSE } from '../reducers/expense.reducer.js'
 
 export async function loadExpenses() {
     const { filterBy } = store.getState().expenseModule
@@ -33,12 +33,14 @@ export async function removeExpense(expenseId) {
     }
 }
 
-export async function addExpense(expenseToAdd) {
+export async function saveExpense(expense) {
+    const type = expense._id ? UPDATE_EXPENSE : ADD_EXPENSE
     try {
-        await expenseService.save(expenseToAdd)
-        store.dispatch({ type: ADD_EXPENSE, expenseToAdd })
+        const expenseToSave = await expenseService.save(expense)
+        store.dispatch({ type, expense: expenseToSave })
+        return expenseToSave
     } catch (err) {
-        console.log('Cannot load expense', err)
+        console.log('Cannot save expense', err)
         throw err
     }
 }

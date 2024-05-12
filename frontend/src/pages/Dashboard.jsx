@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { ExpenseList } from '../cmps/ExpenseList'
 import { ExpenseFilter } from '../cmps/ExpenseFilter'
+import { ExpenseAdd } from '../cmps/ExpenseAdd'
 import { Chart } from '../cmps/Chart'
 
 import { expenseService } from '../services/expense.service'
 
-import { loadExpenses, removeExpense, addExpense } from '../store/actions/expense.actions'
+import { loadExpenses, removeExpense, saveExpense } from '../store/actions/expense.actions'
 
 export function Dashboard() {
 
@@ -16,6 +17,8 @@ export function Dashboard() {
     const filterBy = useSelector(storeState => storeState.expenseModule.filterBy)
     const expenses = useSelector(storeState => storeState.expenseModule.expenses)
 
+    const [modalOpen, setModalOpen] = useState(false)
+    const [currExpense, setCurrExpense] = useState(null)
     const [emptyExpense, setEmptyExpense] = useState(expenseService.getEmptyExpense())
 
     useEffect(() => {
@@ -37,30 +40,39 @@ export function Dashboard() {
         }
     }
 
-    async function onAddExpense() {
-        const amount = +prompt('Expense amount?')
-        const category = prompt('Expense category?')
-        const expenseToAdd = { ...emptyExpense, amount, category }
-
-        try {
-            await addExpense(expenseToAdd)
-        } catch (err) {
-            console.log('Cannot add expense', expenseToAdd, err)
-        }
-    }
-
     function onSetFilter(filterBy) {
         dispatch({ type: 'SET_FILTER_BY', filterBy })
+    }
+
+    function handleOpenModal(expense) {
+        setCurrExpense(expense)
+        setModalOpen(true)
+    }
+
+    function handleCloseModal() {
+        setCurrExpense(null)
+        setModalOpen(false)
+    }
+
+    function handleSaveExpense(expense) {
+        saveExpense(expense)
+        // setModalOpen(false)
+        handleCloseModal()
     }
 
     return (
         <main className="main-app">
             {/* <pre>{JSON.stringify(expenses, null, 2)}</pre> */}
             <ExpenseFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-            <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />
+            <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} handleOpenModal={handleOpenModal} />
             <Chart />
 
-            {/* <button onClick={onAddExpense}>Add Expense!</button> */}
+            <ExpenseAdd open={modalOpen}
+                handleClose={handleCloseModal}
+                expense={currExpense}
+                onSave={handleSaveExpense} />
+
+            <button onClick={() => handleOpenModal(null)}>Add Expense!</button>
         </main>
     )
 }

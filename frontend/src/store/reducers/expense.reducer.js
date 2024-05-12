@@ -4,6 +4,7 @@ export const SET_EXPENSES = 'SET_EXPENSES'
 export const SET_EXPENSE = 'SET_EXPENSE'
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE'
 export const ADD_EXPENSE = 'ADD_EXPENSE'
+export const UPDATE_EXPENSE = 'UPDATE_EXPENSE'
 export const SET_FILTER_BY = 'SET_FILTER_BY'
 
 const initialState = {
@@ -27,8 +28,11 @@ export function expenseReducer(state = initialState, action) {
             newState = { ...state, expenses }
             break
         case ADD_EXPENSE:
-            newState = { ...state, expenses: [...state.expenses, action.expenseToAdd] }
+            newState = { ...state, expenses: [...state.expenses, action.expense] }
             break
+        case UPDATE_EXPENSE:
+            expenses = state.expenses.map(expense => expense._id === action.expense._id ? action.expense : expense)
+            return { ...state, expenses }
         case SET_FILTER_BY:
             return { ...state, filterBy: { ...action.filterBy } }
         default:

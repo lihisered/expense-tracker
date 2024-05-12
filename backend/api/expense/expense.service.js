@@ -80,6 +80,24 @@ async function add(expense) {
     }
 }
 
+async function update(expense) {
+    try {
+        const expenseToSave = {
+            userId: expense.userId,
+            amount: expense.amount,
+            category: expense.category,
+            date: expense.date,
+            notes: expense.notes
+        }
+        const collection = await dbService.getCollection('expense')
+        await collection.updateOne({ _id: ObjectId(expense._id) }, { $set: expenseToSave })
+        return expense
+    } catch (err) {
+        logger.error(`Cannot update expense ${expense._id}`, err)
+        throw err
+    }
+}
+
 function _buildCriteria(filterBy) {
     const criteria = {}
 
@@ -105,4 +123,5 @@ export const expenseService = {
     query,
     getById,
     add,
+    update
 }

@@ -1,7 +1,8 @@
 import { ListItem, ListItemText } from '@mui/material'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 
-export function ExpensePreview({ expense }) {
+export function ExpensePreview({ expense, onClick }) {
+
     const theme = createTheme({
         palette: {
             mode: 'dark',
@@ -21,7 +22,7 @@ export function ExpensePreview({ expense }) {
 
     return (
         <ThemeProvider theme={theme}>
-            <ListItem className="expense-preview" sx={{ maxWidth: 300, bgcolor: theme.palette.background.paper, borderRadius: '8px' }}>
+            <ListItem className="expense-preview" onClick={onClick} sx={{ maxWidth: 300, bgcolor: theme.palette.background.paper, borderRadius: '8px' }}>
                 <ListItemText primary={`$${expense.amount}`} secondary={expense.category} />
             </ListItem>
         </ThemeProvider>

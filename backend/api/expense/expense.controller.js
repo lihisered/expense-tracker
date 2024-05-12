@@ -40,10 +40,10 @@ export async function removeExpense(req, res) {
 }
 
 export async function addExpense(req, res) {
-  const { loggedinUser } = req
+  // const { loggedinUser } = req
   try {
     const expense = req.body
-    expense.owner = loggedinUser
+    // expense.owner = loggedinUser
     const addedExpense = await expenseService.add(expense)
     res.json(addedExpense)
   } catch (err) {
@@ -52,3 +52,13 @@ export async function addExpense(req, res) {
   }
 }
 
+export async function updateExpense(req, res) {
+  try {
+    const expense = req.body
+    const updatedExpense = await expenseService.update(expense)
+    res.json(updatedExpense)
+  } catch (err) {
+    logger.error('Failed to update expense', err)
+    res.status(400).send({ err: 'Failed to update expense' })
+  }
+}
