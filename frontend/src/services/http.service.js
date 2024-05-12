@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/api/'
+    ? 'https://expense-tracker-mijo.onrender.com'
     : '//localhost:3030/api/'
 
 const axios = Axios.create({
