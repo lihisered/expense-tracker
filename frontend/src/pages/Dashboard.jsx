@@ -56,16 +56,14 @@ export function Dashboard() {
 
     function handleSaveExpense(expense) {
         saveExpense(expense)
-        // setModalOpen(false)
         handleCloseModal()
     }
 
     return (
         <main className="main-app">
-            {/* <pre>{JSON.stringify(expenses, null, 2)}</pre> */}
             <ExpenseFilter filterBy={filterBy} onSetFilter={onSetFilter} />
             <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} handleOpenModal={handleOpenModal} />
-            <Chart />
+            <Chart expenses={expenses} />
 
             <ExpenseAdd open={modalOpen}
                 handleClose={handleCloseModal}

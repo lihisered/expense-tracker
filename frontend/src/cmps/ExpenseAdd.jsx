@@ -10,30 +10,18 @@ import { expenseService } from '../services/expense.service'
 
 export function ExpenseAdd({ open, handleClose, expense, onSave }) {
 
-    const [currExpense, setCurrExpense] = useState({
-        amount: '',
-        category: '',
-        date: dayjs(),
-        notes: ''
-    })
+    const [currExpense, setCurrExpense] = useState({ amount: '', category: '', date: dayjs(), notes: '' })
 
     const categories = expenseService.getCategories()
 
     useEffect(() => {
-        if (expense) {
-            setCurrExpense({
-                _id: expense._id,
-                amount: expense.amount || '',
-                category: expense.category || '',
-                date: dayjs.unix(expense.date),
-                notes: expense.notes || ''
-            })
-        }
+        if (expense) setCurrExpense({ _id: expense._id, amount: expense.amount || '', category: expense.category || '', date: dayjs.unix(expense.date), notes: expense.notes || '' })
+        else setCurrExpense({ amount: '', category: '', date: dayjs(), notes: '' })
     }, [expense])
 
-
-    function handleChange(ev) {
-        const { name, value } = ev.target;
+    function handleChange({ target }) {
+        let { name, value, type } = target;
+        value = (type === 'number') ? (+value || '') : value
         setCurrExpense(prev => ({ ...prev, [name]: value }))
     }
 
@@ -77,16 +65,14 @@ export function ExpenseAdd({ open, handleClose, expense, onSave }) {
                             variant="outlined"
                             name="amount"
                             value={currExpense.amount}
-                            onChange={handleChange}
-                        />
+                            onChange={handleChange} />
                         <FormControl fullWidth margin="dense" variant="outlined" sx={{ mb: 2 }}>
                             <InputLabel>Category</InputLabel>
                             <Select
                                 name="category"
                                 value={currExpense.category}
                                 label="Category"
-                                onChange={handleChange}
-                            >
+                                onChange={handleChange}>
                                 {categories.map(category => (
                                     <MenuItem key={category} value={category}>{category}</MenuItem>
                                 ))}
@@ -96,8 +82,7 @@ export function ExpenseAdd({ open, handleClose, expense, onSave }) {
                             label="Select Date"
                             value={currExpense.date}
                             onChange={handleDateChange}
-                            renderInput={(params) => <TextField {...params} fullWidth />}
-                        />
+                            renderInput={(params) => <TextField {...params} fullWidth />} />
                         <TextField
                             margin="dense"
                             label="Notes"
@@ -107,8 +92,7 @@ export function ExpenseAdd({ open, handleClose, expense, onSave }) {
                             name="notes"
                             value={currExpense.notes}
                             onChange={handleChange}
-                            sx={{ mt: 2 }}
-                        />
+                            sx={{ mt: 2 }} />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>
