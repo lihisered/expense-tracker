@@ -40,7 +40,7 @@ async function query(filterBy = {}) {
         ]).toArray()
         return expenses
     } catch (err) {
-        logger.error('cannot find expenses', err)
+        logger.error('Cannot find expenses', err)
         throw err
     }
 }

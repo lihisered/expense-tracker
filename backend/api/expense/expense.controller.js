@@ -1,11 +1,14 @@
 import { expenseService } from './expense.service.js'
 import { logger } from '../../services/logger.service.js'
+import mongodb from 'mongodb'
+const { ObjectId } = mongodb
 
 export async function getExpenses(req, res) {
+  const { loggedinUser } = req
   try {
     logger.debug('Getting expenses:', req.query)
     const filterBy = {
-      userId: req.query.userId | '',
+      userId: loggedinUser._id,
       categories: req.query.categories ? req.query.categories.split(',') : [],
       date: req.query.date | ''
     }
@@ -40,10 +43,10 @@ export async function removeExpense(req, res) {
 }
 
 export async function addExpense(req, res) {
-  // const { loggedinUser } = req
+  const { loggedinUser } = req
   try {
     const expense = req.body
-    // expense.owner = loggedinUser
+    expense.userId = ObjectId(loggedinUser._id) || ''
     const addedExpense = await expenseService.add(expense)
     res.json(addedExpense)
   } catch (err) {

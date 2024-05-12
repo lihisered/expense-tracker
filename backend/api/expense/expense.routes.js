@@ -5,9 +5,9 @@ import { getExpenses, getExpenseById, addExpense, removeExpense, updateExpense }
 
 const router = express.Router()
 
-router.get('/', log, getExpenses)
+router.get('/', log, requireAuth, getExpenses)
 router.get('/:id', getExpenseById)
-router.post('/', addExpense)
+router.post('/', requireAuth, addExpense)
 router.put('/:id', updateExpense)
 router.delete('/:id', removeExpense)
 

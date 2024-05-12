@@ -5,7 +5,7 @@ export function ExpenseList({ expenses, onRemoveExpense, handleOpenModal }) {
         <ul className="expense-list">
             {expenses.map(expense =>
                 <section key={expense._id}>
-                    <button onClick={() => onRemoveExpense(expense._id)}>Remove</button>
+                    {/* <button onClick={() => onRemoveExpense(expense._id)}>Remove</button> */}
                     <ExpensePreview
                         expense={expense}
                         onClick={() => handleOpenModal(expense)}

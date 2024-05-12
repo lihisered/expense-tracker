@@ -5,8 +5,7 @@ import { ExpenseList } from '../cmps/ExpenseList'
 import { ExpenseFilter } from '../cmps/ExpenseFilter'
 import { ExpenseAdd } from '../cmps/ExpenseAdd'
 import { Chart } from '../cmps/Chart'
-
-import { expenseService } from '../services/expense.service'
+import { Navbar } from '../cmps/Navbar'
 
 import { loadExpenses, removeExpense, saveExpense } from '../store/actions/expense.actions'
 
@@ -19,7 +18,6 @@ export function Dashboard() {
 
     const [modalOpen, setModalOpen] = useState(false)
     const [currExpense, setCurrExpense] = useState(null)
-    const [emptyExpense, setEmptyExpense] = useState(expenseService.getEmptyExpense())
 
     useEffect(() => {
         async function fetchData() {
@@ -61,6 +59,7 @@ export function Dashboard() {
 
     return (
         <main className="main-app">
+            <Navbar handleOpen={handleOpenModal} />
             <ExpenseFilter filterBy={filterBy} onSetFilter={onSetFilter} />
             <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} handleOpenModal={handleOpenModal} />
             <Chart expenses={expenses} />
@@ -69,8 +68,6 @@ export function Dashboard() {
                 handleClose={handleCloseModal}
                 expense={currExpense}
                 onSave={handleSaveExpense} />
-
-            <button onClick={() => handleOpenModal(null)}>Add Expense!</button>
         </main>
     )
 }

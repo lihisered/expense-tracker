@@ -1,4 +1,10 @@
 .expense-preview {
     display: flex;
     justify-content: space-between;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: #4f4f4f;
+    }
 }

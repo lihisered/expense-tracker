@@ -10,7 +10,6 @@ import {
 
 import { expenseService } from '../services/expense.service'
 
-
 const theme = createTheme({
     palette: {
         mode: 'dark',
