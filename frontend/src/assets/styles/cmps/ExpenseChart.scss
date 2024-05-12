@@ -1,5 +1,14 @@
 .expense-chart {
     grid-area: chart;
 
-    width: 500px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    @media (max-width: 1125px) {
+        width: 200px;
+        padding: 25px 0;
+        margin: auto;
+    }
 }

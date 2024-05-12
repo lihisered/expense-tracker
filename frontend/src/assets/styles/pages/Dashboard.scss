@@ -1,11 +1,11 @@
 .main-app {
     display: grid;
-    grid-template-columns: 600px 1fr;
+    grid-template-columns: 450px auto 1fr;
     grid-template-rows: 100px 100px calc(100vh - 200px);
     grid-template-areas:
-        "nav nav"
-        "filter filter"
-        "list chart";
+        "nav nav nav"
+        "filter filter filter"
+        "list categories chart";
     min-height: 100vh;
 
     background-color: $bg-primary;
@@ -13,5 +13,30 @@
 
     >* {
         padding: 0 50px;
+
+        @media (max-width: 800px) {
+            padding: 0 10px;
+        }
+    }
+
+    @media (max-width: 1124px) {
+        grid-template-columns: 450px auto;
+        grid-template-rows: 100px 100px auto 1fr;
+        grid-template-areas:
+            "nav nav"
+            "filter filter"
+            "list categories"
+            "list chart";
+    }
+
+    @media (max-width: 800px) {
+        grid-template-columns: auto;
+        grid-template-rows: 100px 80px auto auto auto;
+        grid-template-areas:
+            "nav"
+            "filter"
+            "list"
+            "chart"
+            "categories";
     }
 }

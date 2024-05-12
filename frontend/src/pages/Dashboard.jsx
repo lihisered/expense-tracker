@@ -7,6 +7,7 @@ import { ExpenseAdd } from '../cmps/ExpenseAdd'
 import { Chart } from '../cmps/Chart'
 import { Navbar } from '../cmps/Navbar'
 import { LoginSignup } from '../cmps/LoginSignup'
+import { Categories } from '../cmps/Categories.jsx'
 
 import { loadExpenses, removeExpense, saveExpense } from '../store/actions/expense.actions'
 import { logout } from '../store/actions/user.actions.js'
@@ -83,6 +84,8 @@ export function Dashboard() {
                 onRemoveExpense={onRemoveExpense}
                 handleOpenModal={handleOpenModal} />
             <Chart expenses={expenses} />
+
+            <Categories />
 
             <ExpenseAdd open={modalOpen}
                 handleClose={handleCloseModal}

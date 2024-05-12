@@ -16,13 +16,13 @@ export function Chart({ expenses }) {
             {
                 data: Object.values(categories),
                 backgroundColor: [
-                    "#f78fb3",
-                    "#d6a2e8",
-                    "#786fa6",
-                    "#574b90",
-                    "#63cdda",
-                    "#546de5",
-                    "#1abc9c"
+                    "#f44336",
+                    "#ff9800",
+                    "#2196f3",
+                    "#4caf50",
+                    "#e91e63",
+                    "#9c27b0",
+                    "#ffc107"
                 ],
             }
         ]
@@ -38,10 +38,8 @@ export function Chart({ expenses }) {
 
     return (
         <section className='expense-chart'>
-            <div>
-                <h2>Expense Distribution</h2>
-                <Pie data={chartData} options={options} />
-            </div>
+            <h2>Expense Distribution</h2>
+            <Pie data={chartData} options={options} />
         </section>
     )
 }
