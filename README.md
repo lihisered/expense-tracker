@@ -37,7 +37,7 @@ Expense Tracker is a full-stack application that allows users to manage their pe
    cd frontend
    npm start
    ```
-5. Open your browser and visit http://localhost:3000.
+5. Open your browser and visit http://localhost:5173.
 
 ## Usage
 
