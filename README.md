@@ -1,3 +1,4 @@
+
 # Expense Tracker
 
 Expense Tracker is a full-stack application that allows users to manage their personal finances by tracking income and expenses. This tool provides visual insights and a breakdown of spending, helping users to budget more effectively.
@@ -21,23 +22,25 @@ Expense Tracker is a full-stack application that allows users to manage their pe
    ```
    git clone https://github.com/lihisered/expense-tracker.git
    ```
-2. Install dependencies for both frontend and backend:
+2. Install dependencies for both the backend:
    ```
    cd expense-tracker/backend
-   npm install
-   cd ../frontend
    npm install
    ```
 3. Start the backend server:
    ```
    npm start
    ```
-4. In a new terminal, start the frontend server:
+4. Install dependencies for the frontend:
    ```
-   cd frontend
-   npm start
+   cd ../frontend
+   npm install
    ```
-5. Open your browser and visit http://localhost:5173.
+5. Start the frontend server:
+   ```
+   npm run dev
+   ```
+6. Open your browser and visit http://localhost:5173.
 
 ## Usage
 
