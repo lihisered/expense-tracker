@@ -5,13 +5,11 @@ const { ObjectId } = mongodb
 
 async function query(filterBy = {}) {
     try {
-        const criteria = _buildCriteria(filterBy)
+        const { criteria, sortOptions } = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('expense')
 
-        const expenses = await collection.aggregate([
-            {
-                $match: criteria
-            },
+        let pipeline = [
+            { $match: criteria },
             {
                 $lookup: {
                     from: 'user',
@@ -36,14 +34,18 @@ async function query(filterBy = {}) {
                     username: "$userDetails.username",
                     fullname: "$userDetails.fullname"
                 }
-            }
-        ]).toArray()
+            },
+            { $sort: sortOptions }
+        ]
+
+        const expenses = await collection.aggregate(pipeline).toArray()
         return expenses
     } catch (err) {
         logger.error('Cannot find expenses', err)
         throw err
     }
 }
+
 
 async function getById(expenseId) {
     try {
@@ -111,17 +113,18 @@ function _buildCriteria(filterBy) {
 
     if (filterBy.date) {
         const date = new Date(filterBy.date * 1000)
-
         const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate())
         const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0, 0, -1)
-
         const startOfDayTimestamp = Math.floor(startOfDay.getTime() / 1000)
         const endOfDayTimestamp = Math.floor(endOfDay.getTime() / 1000)
-
         criteria.date = { $gte: startOfDayTimestamp, $lt: endOfDayTimestamp }
     }
 
-    return criteria
+    const sortOptions = {
+        [filterBy.sort === 'amount' ? 'amount' : 'date']: 1
+    }
+
+    return { criteria, sortOptions }
 }
 
 

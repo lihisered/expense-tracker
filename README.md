@@ -1,39 +1,56 @@
-# Expense Tracker App
+# Expense Tracker
 
-This Expense Tracker App allows users to track and manage their expenses efficiently. The application is split into two main directories within the same repository: `frontend` and `backend`.
+Expense Tracker is a full-stack application that allows users to manage their personal finances by tracking income and expenses. This tool provides visual insights and a breakdown of spending, helping users to budget more effectively.
 
-## Project Description
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
 
-The Expense Tracker App is designed to help individuals keep an eye on their financial activities by categorizing and visualizing their expenses through an intuitive user interface. Users can add, update, and delete their expenses while viewing aggregate data through charts.
+## Installation
 
-## Technologies Used
+### Prerequisites
+- Node.js
+- npm
+- MongoDB
 
-This project utilizes the following technologies:
+### Setting Up a Local Copy
+1. Clone the repository:
+   ```
+   git clone https://github.com/lihisered/expense-tracker.git
+   ```
+2. Install dependencies for both frontend and backend:
+   ```
+   cd expense-tracker/backend
+   npm install
+   cd ../frontend
+   npm install
+   ```
+3. Start the backend server:
+   ```
+   npm start
+   ```
+4. In a new terminal, start the frontend server:
+   ```
+   cd frontend
+   npm start
+   ```
+5. Open your browser and visit http://localhost:3000.
 
-### Backend
-- Express.js: A web application framework for Node.js.
-- MongoDB: A NoSQL database.
-- Bcrypt: A library to help you hash passwords.
-- Cookie-parser: Middleware to parse cookies attached to the client request object.
-- CORS: A node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
-- Cryptr: A simple encrypt and decrypt module for Node.js.
+## Usage
 
-### Frontend
-- React: A JavaScript library for building user interfaces.
-- Redux: A Predictable State Container for JS Apps.
-- MUI: A comprehensive library of React UI components that are Material Design compliant.
-- Axios: A Promise-based HTTP client for the browser and Node.js.
-- Chart.js and React-Chartjs-2: Simple yet flexible charting libraries for designers & developers.
-- Day.js: A minimalist JavaScript library that parses, validates, manipulates, and displays dates and times.
+After starting the application, you can create an account and log in to track your expenses and income.
 
-## Installation Instructions
+### Features Include:
+- Adding and removing transactions
+- Categorizing transactions
+- Viewing transaction history
+- Generating spending reports
 
-### Backend
-cd backend
-npm install
-npm start
+## Features
 
-### Frontend
-cd frontend
-npm install
-npm run dev
+- **User Authentication**: Secure login and signup features to manage personal accounts.
+- **Transaction Management**: Add, edit, and delete income and expenses.
+- **Reporting**: Visual graphs to display financial data.

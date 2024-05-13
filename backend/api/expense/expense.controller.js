@@ -9,7 +9,8 @@ export async function getExpenses(req, res) {
     const filterBy = {
       userId: req.query.userId || '',
       categories: req.query.categories ? req.query.categories.split(',') : [],
-      date: req.query.date | ''
+      date: req.query.date | '',
+      sort: req.query.sort
     }
     const expenses = await expenseService.query(filterBy)
     res.json(expenses)
