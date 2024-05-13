@@ -14,5 +14,3 @@ export async function setupAsyncLocalStorage(req, res, next) {
     next()
   })
 }
-
-

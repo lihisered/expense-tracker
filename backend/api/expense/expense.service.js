@@ -115,10 +115,10 @@ function _buildCriteria(filterBy) {
         const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate())
         const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0, 0, -1)
 
-        const startOfDayTimestamp = Math.floor(startOfDay.getTime() / 1000);
-        const endOfDayTimestamp = Math.floor(endOfDay.getTime() / 1000);
+        const startOfDayTimestamp = Math.floor(startOfDay.getTime() / 1000)
+        const endOfDayTimestamp = Math.floor(endOfDay.getTime() / 1000)
 
-        criteria.date = { $gte: startOfDayTimestamp, $lt: endOfDayTimestamp };
+        criteria.date = { $gte: startOfDayTimestamp, $lt: endOfDayTimestamp }
     }
 
     return criteria

@@ -18,23 +18,19 @@ export const expenseService = {
 
 async function query(filterBy = {}) {
     return httpService.get(BASE_URL, filterBy)
-    // return await storageService.query(STORAGE_KEY)
 }
 
 function getById(expenseId) {
-    return storageService.get(STORAGE_KEY, expenseId)
+    return httpService.get(STORAGE_KEY, expenseId)
 }
 
 async function remove(expenseId) {
     return httpService.delete(BASE_URL + expenseId)
-    // await storageService.remove(STORAGE_KEY, expenseId)
 }
 
 async function save(expense) {
     if (expense._id) return httpService.put(BASE_URL + expense._id, expense)
-    // return await storageService.put(STORAGE_KEY, expense)
     else return httpService.post(BASE_URL, expense)
-    // return await storageService.post(STORAGE_KEY, expense)
 }
 
 function getEmptyExpense() {
@@ -72,8 +68,3 @@ function _makeId(length = 9) {
     }
     return txt
 }
-
-// function _createExpenses() {
-//     const expensesData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
-//     if (!expensesData || !expensesData.length) localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses))
-// }

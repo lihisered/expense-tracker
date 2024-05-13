@@ -30,7 +30,9 @@ export function ExpenseAdd({ open, handleClose, expense, onSave }) {
     }
 
     function handleSubmit() {
+        if (!currExpense.amount || !currExpense.date || !currExpense.category) return
         onSave({ ...currExpense, date: currExpense.date.unix() })
+        setCurrExpense({ amount: '', category: '', date: dayjs(), notes: '' })
         handleClose()
     }
 

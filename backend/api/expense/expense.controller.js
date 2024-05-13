@@ -38,7 +38,9 @@ export async function removeExpense(req, res) {
     if (!expense) {
       return res.status(404).send({ err: 'Expense not found' })
     }
-    if (req.loggedinUser._id !== expense.userId.toString()) {
+
+    console.log(req.loggedinUser._id, expense.userId?.toString());
+    if (req.loggedinUser._id !== expense.userId?.toString()) {
       return res.status(403).send({ err: 'Not authorized to remove this expense' })
     }
 
